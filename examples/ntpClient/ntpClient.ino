@@ -12,6 +12,9 @@
   inspired by https://www.arduino.cc/en/Tutorial/UdpNtpClient
 
   License: GPLv2
+  
+  01/02/2021 --> Revision Pascal Cambier (by CPA)
+  source : https://github.com/njh/EtherCard/tree/master/examples/ntpClient
 
 */
 
@@ -19,7 +22,8 @@
 
 // Ethernet mac address - must be unique on your network
 const byte myMac[] PROGMEM = { 0x70, 0x69, 0x69, 0x2D, 0x30, 0x31 };
-const char NTP_REMOTEHOST[] PROGMEM = "ntp.bit.nl";  // NTP server name
+// (by CPA) Attention choose a server update!
+const char NTP_REMOTEHOST[] PROGMEM = "ntp.midway.ovh";  // NTP server name
 const unsigned int NTP_REMOTEPORT = 123;             // NTP requests are to port 123
 const unsigned int NTP_LOCALPORT = 8888;             // Local UDP port to use
 const unsigned int NTP_PACKET_SIZE = 48;             // NTP time stamp is in the first 48 bytes of the message
@@ -72,7 +76,8 @@ void udpReceiveNtpPacket(uint16_t dest_port, uint8_t src_ip[IP_LEN], uint16_t sr
 
 void setup() {
   Serial.begin(9600);
-  Serial.println(F("\n[EtherCard NTP Client]"));
+  // Serial.println(F("\n[EtherCard NTP Client]")); // (by CPA) is not willing to write to flash memory (compete with PROGMEM?)
+  Serial.println("\n[EtherCard NTP Client] - revison (by CPA) 10-02-2021 ");
 
   // Change 'SS' to your Slave Select pin, if you arn't using the default pin
   if (ether.begin(sizeof Ethernet::buffer, myMac, SS) == 0)
